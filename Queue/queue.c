@@ -1,5 +1,8 @@
 #include "queue.h"
 
+typedef struct node* Node;
+typedef struct queue* Queue;
+
 struct node {
 	Item data;
 	Node next;
@@ -62,4 +65,28 @@ void Enqueue(Queue queue, Item data)
 	}
 }
 
+Item Dequeue(Queue queue)
+{
+	if (Is_empty(queue))
+		terminate("Error in Peek : Queue is empty.");
 
+	Node old_node = queue->front;
+	Item old_data = old_node->data;
+
+	Destroy(queue);
+	return old_data;
+
+}
+
+Item Peek(Queue queue)
+{
+	if (Is_empty(queue))
+		terminate("Error in Peek : Queue is empty.");
+
+	return queue->front;
+}
+
+bool Is_empty(Queue queue)
+{
+	return queue->size == 0;
+}
