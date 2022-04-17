@@ -11,3 +11,6 @@ typedef struct queue* Queue;
 typedef int Item;
 
 void Terminate(const char*);
+Node Create_node();
+Queue Create_queue();
+void Enqueue(Queue, Item);
