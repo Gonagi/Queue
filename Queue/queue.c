@@ -69,20 +69,37 @@ Item Dequeue(Queue queue)
 {
 	if (Is_empty(queue))
 		terminate("Error in Peek : Queue is empty.");
-
+	
 	Node Front_node = queue->front;
 	Item old_data = Front_node->data;
+	if(queue->front = Front_node->next == NULL)
+		queue->rear = NULL;
 
-	queue->front = Front_node->next;
-
+	// Destroy(queue, Front_node);
 	Destroy_node(Front_node);
 	queue->size--;
 
 	if (Is_empty(queue))
 		Destroy_queue(queue);
+
 	return old_data;
 }
 
+
+/*
+void Destroy(Queue queue, Node Front_node)
+{
+	if (queue->size == 2)
+		queue->front = queue->rear;
+
+	queue->front = Front_node->next;
+	queue->size--;
+	if (Is_empty(queue))
+		Destroy_queue(queue);
+
+
+}
+*/
 void Destroy_node(Node Front_node)
 {
 	free(Front_node);
@@ -107,7 +124,8 @@ Item Peek(Queue queue)
 
 bool Is_empty(Queue queue)
 {
-	return queue->size == 0;
+	//return queue->size == 0;
+	return queue->front == NULL;
 }
 
 void Print_queue(Queue queue) 

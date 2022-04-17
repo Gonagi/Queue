@@ -22,14 +22,16 @@ int main()
 
 	printf("\n\n");
 
+	q2 = Create_queue();
+
 	Enqueue(q2, 20);
 	Enqueue(q2, 30);
 	Enqueue(q2, 40);
 	Enqueue(q3, 300);
 
-	//Print_queue(q1);
+	Print_queue(q1);
 	Print_queue(q2);
 	Print_queue(q3);
-
+	_CrtDumpMemoryLeaks();
 	return 0;
 }
