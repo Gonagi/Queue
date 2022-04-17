@@ -40,16 +40,13 @@ Queue Create_queue()
 	
 	new_queue->front = NULL;
 	new_queue->rear = NULL;
-	new_queue->size = NULL;
+	new_queue->size = 0;
 	
 	return new_queue;
 }
 
 void Enqueue(Queue queue, Item data)
 {
-	if (queue == NULL)
-		terminate("Error in Enqueue : queue is empty.");
-
 	Node new_node = Create_node();
 	new_node->data = data;
 
@@ -71,35 +68,21 @@ Item Dequeue(Queue queue)
 		terminate("Error in Peek : Queue is empty.");
 	
 	Node Front_node = queue->front;
+	Node Rear_node = queue->rear;
 	Item old_data = Front_node->data;
-	if(queue->front = Front_node->next == NULL)
-		queue->rear = NULL;
-
-	// Destroy(queue, Front_node);
-	Destroy_node(Front_node);
+	
+	queue->front = Front_node->next;
 	queue->size--;
 
-	if (Is_empty(queue))
-		Destroy_queue(queue);
+	Destroy_node(Front_node);
+
+	// 큐 삭제하고 다시 할당할떄 버그....
+	//if (Is_empty(queue))
+	//	Destroy_queue(queue);
 
 	return old_data;
 }
 
-
-/*
-void Destroy(Queue queue, Node Front_node)
-{
-	if (queue->size == 2)
-		queue->front = queue->rear;
-
-	queue->front = Front_node->next;
-	queue->size--;
-	if (Is_empty(queue))
-		Destroy_queue(queue);
-
-
-}
-*/
 void Destroy_node(Node Front_node)
 {
 	free(Front_node);
@@ -107,11 +90,13 @@ void Destroy_node(Node Front_node)
 	Front_node->data = NULL;
 }
 
+// 큐 삭제할때 버그...
 void Destroy_queue(Queue queue)
 {
 	free(queue);
 	queue->front = NULL;
 	queue->rear = NULL;
+	queue->size = 0;
 }
 
 Item Peek(Queue queue)
@@ -131,7 +116,7 @@ bool Is_empty(Queue queue)
 void Print_queue(Queue queue) 
 {
 	if (Is_empty(queue))
-		printf("'queue' is Empty\n");
+		printf("'queue' is Empty\n\n");
 	else {
 		Node Front_node = queue->front;
 		Node Rear_node = queue->rear;
