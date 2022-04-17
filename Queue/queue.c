@@ -10,3 +10,9 @@ struct queue {
 	Node rear;	// »ğÀÔ
 	int size;
 };
+
+void Terminate(const char* message)
+{
+	printf("%s\n", message);
+	exit(EXIT_FAILURE);
+}
