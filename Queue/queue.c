@@ -56,13 +56,13 @@ void Enqueue(Queue queue, Item data)
 	if (Is_empty(queue)) {
 		queue->front = new_node;
 		queue->rear = new_node;
-		queue->size++;
 	}
 
 	else {
-		new_node->next = queue->front;
-		queue->front = new_node;
+		queue->rear->next = new_node;
+		queue->rear = new_node;
 	}
+	queue->size++;
 }
 
 Item Dequeue(Queue queue)
@@ -73,11 +73,32 @@ Item Dequeue(Queue queue)
 	Node old_node = queue->front;
 	Item old_data = old_node->data;
 
-	Destroy(queue);
-	return old_data;
+	queue->front = old_node->next;
 
+	Destroy_node(queue);
+	return old_data;
 }
 
+void Destroy_node(Queue queue)
+{
+	Node Front_node = queue->front;
+	free(Front_node);
+	Front_node->next = NULL;
+	Front_node->data = NULL;
+
+	queue->size--;
+
+	if (Is_empty(queue))
+		Destroy_queue(queue);
+}
+
+void Destroy_queue(Queue queue)
+{
+	free(queue);
+	queue->front = NULL;
+	queue->rear = NULL;
+	queue->size = 0;
+}
 Item Peek(Queue queue)
 {
 	if (Is_empty(queue))

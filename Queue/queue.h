@@ -15,5 +15,8 @@ Node Create_node();
 Queue Create_queue();
 void Enqueue(Queue, Item);
 Item Dequeue(Queue);
+void Destroy(Queue);
+void Destroy_node(Queue);
+void Destroy_queue(Queue);
 Item Peek(Queue queue);
 bool Is_empty(Queue);
