@@ -3,7 +3,6 @@
 
 #endif
 #include <stdio.h>
-#include <cstdlib>
 #include <stdbool.h>
 
 typedef struct node* Node;
@@ -15,8 +14,8 @@ Node Create_node();
 Queue Create_queue();
 void Enqueue(Queue, Item);
 Item Dequeue(Queue);
-void Destroy(Queue);
 void Destroy_node(Queue);
 void Destroy_queue(Queue);
 Item Peek(Queue queue);
 bool Is_empty(Queue);
+void Print_queue(Queue);

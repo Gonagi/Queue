@@ -17,7 +17,7 @@ struct queue {
 void Terminate(const char* message)
 {
 	printf("%s\n", message);
-	exit(EXIT_FAILURE);
+	exit(1);
 }
 
 Node Create_node()
@@ -70,26 +70,24 @@ Item Dequeue(Queue queue)
 	if (Is_empty(queue))
 		terminate("Error in Peek : Queue is empty.");
 
-	Node old_node = queue->front;
-	Item old_data = old_node->data;
-
-	queue->front = old_node->next;
-
-	Destroy_node(queue);
-	return old_data;
-}
-
-void Destroy_node(Queue queue)
-{
 	Node Front_node = queue->front;
-	free(Front_node);
-	Front_node->next = NULL;
-	Front_node->data = NULL;
+	Item old_data = Front_node->data;
 
+	queue->front = Front_node->next;
+
+	Destroy_node(Front_node);
 	queue->size--;
 
 	if (Is_empty(queue))
 		Destroy_queue(queue);
+	return old_data;
+}
+
+void Destroy_node(Node Front_node)
+{
+	free(Front_node);
+	Front_node->next = NULL;
+	Front_node->data = NULL;
 }
 
 void Destroy_queue(Queue queue)
@@ -97,17 +95,41 @@ void Destroy_queue(Queue queue)
 	free(queue);
 	queue->front = NULL;
 	queue->rear = NULL;
-	queue->size = 0;
 }
+
 Item Peek(Queue queue)
 {
 	if (Is_empty(queue))
 		terminate("Error in Peek : Queue is empty.");
 
-	return queue->front;
+	return queue->front->data;
 }
 
 bool Is_empty(Queue queue)
 {
 	return queue->size == 0;
+}
+
+void Print_queue(Queue queue) 
+{
+	if (Is_empty(queue))
+		printf("'queue' is Empty\n");
+	else {
+		Node Front_node = queue->front;
+		Node Rear_node = queue->rear;
+		Node node = queue->front;
+
+		printf("Front node : %d\n", Front_node->data);
+		printf("Rear node : %d\n", Rear_node->data);
+		
+		for (int i = 0; i < queue->size; i++) {
+			printf("%d", node->data);
+			node = node->next;
+
+			if (i == queue->size - 1)
+				printf("\n\n");
+			else
+				printf(" --> ");
+		}
+	}
 }
