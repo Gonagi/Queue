@@ -77,8 +77,8 @@ Item Dequeue(Queue queue)
 	Destroy_node(Front_node);
 
 	// 큐 삭제하고 다시 할당할떄 버그....
-	//if (Is_empty(queue))
-	//	Destroy_queue(queue);
+	if (Is_empty(queue))
+		Destroy_queue(queue);
 
 	return old_data;
 }
@@ -109,7 +109,7 @@ Item Peek(Queue queue)
 
 bool Is_empty(Queue queue)
 {
-	//return queue->size == 0;
+	// return queue->size == 0;
 	return queue->front == NULL;
 }
 
