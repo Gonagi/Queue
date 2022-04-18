@@ -12,6 +12,17 @@ typedef struct node* Node;
 typedef struct queue* Queue;
 typedef int Item;
 
+struct node {
+	Item data;
+	Node next;
+};
+
+struct queue {
+	Node front;	// ªË¡¶
+	Node rear;	// ª¿‘
+	int size;
+};
+
 void Terminate(const char*);
 Node Create_node();
 Queue Create_queue();
